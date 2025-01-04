@@ -1,0 +1,99 @@
+.calendar {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-title {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.nav-button {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.day-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 0.9rem;
+}
+
+.day-label {
+    color: #666;
+}
+
+.view-switcher {
+    display: flex;
+    gap: 10px;
+}
+
+.view-button {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    background: #f4f4f4;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.view-button.active {
+    background: #ff9800;
+    color: white;
+}
+
+.month-view,
+.week-view {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.event {
+    background: #ff9800;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .month-view,
+    .week-view {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .calendar-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .month-view,
+    .week-view {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

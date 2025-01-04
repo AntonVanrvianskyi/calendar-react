@@ -1,0 +1,17 @@
+.day-cell {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+}
+.active-day {
+    border: 1px solid red;
+}
+.day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}

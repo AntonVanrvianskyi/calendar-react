@@ -1,7 +1,9 @@
+import Calendar from "@/components/calendar";
+
 function MainPage() {
     return (
         <>
-            Main page
+            <Calendar/>
         </>
     )
 }
