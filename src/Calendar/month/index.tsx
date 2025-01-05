@@ -1,6 +1,6 @@
 import React from "react";
 import {Day} from "@/interfaces/date.interface.ts";
-import DayCell from "@/components/day";
+import DayCell from "@/Calendar/day";
 
 const MonthView: React.FC<{ days: Day[]; currentMonth: number }> = ({ days, currentMonth }) => {
     return (

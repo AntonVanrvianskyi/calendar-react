@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './index.css';
-import MonthView from "@/components/month";
-import WeekView from "@/components/weak";
+import MonthView from "@/Calendar/month";
+import WeekView from "@/Calendar/weak";
 import {useGenerateMonth} from "@/hooks/useGenerateMonth.ts";
 import {useGenerateWeekDays} from "@/hooks/useGenerateWeekDays.ts";
 
