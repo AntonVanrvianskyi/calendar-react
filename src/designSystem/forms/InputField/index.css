@@ -1,0 +1,11 @@
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 14px;
+}
+input {
+    height: 25px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+}

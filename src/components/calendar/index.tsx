@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './index.css';
 import MonthView from "@/components/month";
 import WeekView from "@/components/weak";
@@ -12,7 +12,6 @@ const Calendar: React.FC = () => {
     const [viewMode, setViewMode] = useState<ViewMode>('month');
     const [days] = useGenerateMonth(currentDate)
     const [weekDays] = useGenerateWeekDays(currentDate)
-
 
     const changeDate = (direction: 'prev' | 'next') => {
         const delta = viewMode === 'month' ? 1 : 7;
@@ -40,8 +39,12 @@ const Calendar: React.FC = () => {
                 <button className="nav-button" onClick={() => changeDate('next')}>&gt;</button>
 
                 <div className="view-switcher">
-                    <button className={`view-button ${viewMode === 'month' ? 'active' : ''}`} onClick={() => setViewMode('month')}>Month</button>
-                    <button className={`view-button ${viewMode === 'week' ? 'active' : ''}`} onClick={() => setViewMode('week')}>Week</button>
+                    <button className={`view-button ${viewMode === 'month' ? 'active' : ''}`}
+                            onClick={() => setViewMode('month')}>Month
+                    </button>
+                    <button className={`view-button ${viewMode === 'week' ? 'active' : ''}`}
+                            onClick={() => setViewMode('week')}>Week
+                    </button>
                 </div>
             </header>
 
@@ -52,9 +55,9 @@ const Calendar: React.FC = () => {
             </div>
 
             {viewMode === 'month' ? (
-                <MonthView days={days} currentMonth={currentDate.getMonth()} />
+                <MonthView days={days} currentMonth={currentDate.getMonth()}/>
             ) : (
-                <WeekView days={weekDays} currentMonth={currentDate.getMonth()} />
+                <WeekView days={weekDays} currentMonth={currentDate.getMonth()}/>
             )}
         </section>
     );

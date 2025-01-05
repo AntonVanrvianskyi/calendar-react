@@ -1,0 +1,8 @@
+.btn-secondary {
+    width: 100%;
+    padding: 8px 15px;
+    border: 1px solid var(--gray);
+    background: var(--light-gray);
+    cursor: pointer;
+    border-radius: 5px;
+}
