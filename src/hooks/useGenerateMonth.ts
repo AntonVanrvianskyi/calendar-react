@@ -7,21 +7,21 @@ export const useGenerateMonth = (currentDate: Date): Day[][] => {
     const days: Day[] = [];
 
     for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-        days.push({date: new Date(d), events: []});
+        days.push({date: new Date(d)});
     }
 
     const startDay = start.getDay();
     for (let i = startDay - 1; i >= 0; i--) {
         const prevDate = new Date(start);
         prevDate.setDate(start.getDate() - (startDay - i));
-        days.unshift({date: prevDate, events: []});
+        days.unshift({date: prevDate});
     }
 
     const endDay = end.getDay();
     for (let i = 1; i <= 6 - endDay; i++) {
         const nextDate = new Date(end);
         nextDate.setDate(end.getDate() + i);
-        days.push({date: nextDate, events: []});
+        days.push({date: nextDate});
     }
 
     return [days];

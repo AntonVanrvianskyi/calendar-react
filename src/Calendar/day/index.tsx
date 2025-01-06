@@ -2,6 +2,7 @@ import React, {useMemo} from "react";
 import {Day} from "@/interfaces/date.interface.ts";
 import './index.css'
 import {useEventStore} from "@/AddEventToDay/useEventsStore.ts";
+import Event from "@/Calendar/day/Event.tsx";
 
 const DayCell: React.FC<{ day: Day; currentMonth: number }> = ({day, currentMonth}) => {
     const {setContextEventModal, events} = useEventStore()
@@ -13,16 +14,15 @@ const DayCell: React.FC<{ day: Day; currentMonth: number }> = ({day, currentMont
         day.date.getFullYear() === today.getFullYear();
 
     const filteredEvents = useMemo(() => {
-        return events.filter((item) => new Date(item.id).getTime() === day.date.getTime() &&
-            new Date(item.id).getMonth() === day.date.getMonth()
+        return events.filter((item) => new Date(String(item.day)).getDate() === day.date.getDate() &&
+            new Date(String(item.day)).getMonth() === currentMonth
         );
-    }, [events, day])
-    // console.log(events)
-    // console.log(new Date(events[0].id).getDay())
-    console.log(filteredEvents)
+    }, [events, day, currentMonth]);
+
     const handleOpenAddEventModal = () => {
-        setContextEventModal({isOpen: true, payload: day.date})
+        setContextEventModal({isOpen: true, payload: day.date, type: "add"})
     }
+    console.log(events, "events")
 
 
     return (
@@ -30,10 +30,8 @@ const DayCell: React.FC<{ day: Day; currentMonth: number }> = ({day, currentMont
       <span className={`day-number ${isOtherMonth ? 'other-month' : ''}`} style={{opacity: isOtherMonth ? 0.5 : 1}}>
         {day.date.getDate()}
       </span>
-            {filteredEvents.map((event, i) => (
-                <div key={i} className="event">
-                    {event.event}
-                </div>
+            {filteredEvents.map((event,) => (
+                <Event key={String(event.id)} event={event}/>
             ))}
         </div>
     );

@@ -1,0 +1,32 @@
+.event {
+    background: white;
+    padding: 5px;
+    margin-top: 5px;
+    color: black;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+}
+.event p {
+    margin: 0;
+    text-align: left;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.priority {
+    height: 3px;
+    border-radius: 3px;
+    margin: 0 0 5px 0;
+    border: none;
+}
+.priority.high {
+    background: red;
+}
+
+.priority.medium {
+    background: orange;
+}
+.priority.low {
+    background: blue;
+}

@@ -7,16 +7,17 @@ interface InputFieldProps {
     placeholder?: string
     // register: UseFormRegister<Record<string, string>>
     name: string
+    required?: boolean
 }
 
 
-function InputField({label, name, placeholder}: InputFieldProps) {
+function InputField({label, name, required = true, placeholder}: InputFieldProps) {
     const {register} = useFormContext()
     return (
         <>
             <label>
                 {label}
-                <input {...register(name)} name={name} placeholder={placeholder}/>
+                <input {...register(name, {required})} name={name} placeholder={placeholder}/>
             </label>
         </>
     )

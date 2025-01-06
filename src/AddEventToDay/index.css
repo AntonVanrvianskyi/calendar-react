@@ -1,0 +1,31 @@
+.header-modal{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-modal h4 {
+    margin: 0;
+    font-weight: 500;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-close{
+    width: 40px;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    background: none;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

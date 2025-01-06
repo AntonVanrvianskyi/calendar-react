@@ -1,6 +1,6 @@
 .calendar {
     font-family: Arial, sans-serif;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 10px;
 }
@@ -65,14 +65,6 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
-}
-
-.event {
-    background: var(--main-yellow);
-    color: white;
-    padding: 2px 5px;
-    border-radius: 3px;
-    font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {

@@ -5,13 +5,15 @@ interface Props {
     label: string;
     onClick?: () => void;
     type?: "submit" | "reset" | "button";
+    disabled?: boolean;
 }
 
 
-function ActionButton({label, type = "submit", onClick}: Props) {
+function ActionButton({label, disabled, type = "submit", onClick}: Props) {
 
     return (
         <button
+            disabled={disabled}
             className="btn-action"
             type={type}
             onClick={onClick}
