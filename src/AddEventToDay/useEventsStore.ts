@@ -16,6 +16,8 @@ interface EventStore {
     events: IEvent[]
     setEvents: (event: IEvent) => void
     setUpdateEvent: (event: IEvent) => void
+    setHolidayToEvents: (holidays: IEvent[]) => void
+
 }
 
 
@@ -26,5 +28,6 @@ export const useEventStore = create<EventStore>((set) => ({
     setEvents: (event: IEvent) => set((state) => ({events: [...state.events, event]})),
     setUpdateEvent: (event: IEvent) => set((state) => ({
         events: state.events.map(existEvent => existEvent.id === event.id ? {...existEvent, ...event} : existEvent),
-    }))
+    })),
+    setHolidayToEvents: (holidays: IEvent[]) => set((state) => ({events: [...state.events, ...holidays]})),
 }))

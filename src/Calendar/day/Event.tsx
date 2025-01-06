@@ -1,14 +1,15 @@
 import './Event.css'
 import {IEvent} from "@/interfaces/event.interface.ts";
-import {MouseEvent} from "react";
+import {MouseEvent, DragEvent} from "react";
 import {useEventStore} from "@/AddEventToDay/useEventsStore.ts";
 
 interface Props {
     event: IEvent
+    onDragStart: (event: DragEvent<HTMLDivElement>, eventData: IEvent) => void;
+
 }
 
-
-function Event({event}: Props) {
+function Event({event, onDragStart}: Props) {
     const setOpenEventModal = useEventStore(state => state.setContextEventModal)
     const handleEventClick = (e: MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
@@ -20,6 +21,8 @@ function Event({event}: Props) {
             <div
                 onClick={handleEventClick}
                 className="event"
+                draggable
+                onDragStart={(e) => onDragStart(e, event)}
             >
                 <hr className={`priority ${event.priority.toLowerCase()}`}/>
                 <p>

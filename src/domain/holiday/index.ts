@@ -8,6 +8,6 @@ interface Props {
     countryCode: string
 }
 
-export const getPublicHolidays = ({year, countryCode}: Props): Promise<AxiosResponse<Holiday>> => {
+export const getPublicHolidays = ({year, countryCode}: Props): Promise<AxiosResponse<Holiday[]>> => {
     return api.get(`/PublicHolidays/${year}/${countryCode}`,)
 }

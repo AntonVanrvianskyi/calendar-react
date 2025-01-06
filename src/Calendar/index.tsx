@@ -12,7 +12,7 @@ const Calendar: React.FC = () => {
     const [viewMode, setViewMode] = useState<ViewMode>('month');
     const [days] = useGenerateMonth(currentDate)
     const [weekDays] = useGenerateWeekDays(currentDate)
-
+    console.log(currentDate.getFullYear())
     const changeDate = (direction: 'prev' | 'next') => {
         const delta = viewMode === 'month' ? 1 : 7;
         const updatedDate = new Date(currentDate);
