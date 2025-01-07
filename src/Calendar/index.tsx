@@ -1,18 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './index.css';
 import MonthView from "@/Calendar/month";
 import WeekView from "@/Calendar/weak";
 import {useGenerateMonth} from "@/hooks/useGenerateMonth.ts";
 import {useGenerateWeekDays} from "@/hooks/useGenerateWeekDays.ts";
+import {useGetCountryCode} from "@/hooks/useGetCountryCode.ts";
+import {useEventStore} from "@/AddEventToDay/useEventsStore.ts";
+import {formatDateTitle} from "@/lib/tools/formateDate";
 
 type ViewMode = 'month' | 'week';
+const views: ViewMode[] = ['month', 'week'];
+
 
 const Calendar: React.FC = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
+    const setHolidays = useEventStore(state => state.setHolidayToEvents)
     const [viewMode, setViewMode] = useState<ViewMode>('month');
     const [days] = useGenerateMonth(currentDate)
     const [weekDays] = useGenerateWeekDays(currentDate)
-    console.log(currentDate.getFullYear())
+    const {data, isSuccess} = useGetCountryCode({year: currentDate.getFullYear()})
+    const holidays = useMemo(() => {
+        if (!data?.data) return [];
+        return data.data.map((holiday) => ({
+            event: holiday.localName,
+            day: new Date(holiday.date).toString(),
+            priority: "",
+            isHoliday: true,
+            id: new Date().getTime(),
+        }));
+    }, [data?.data]);
+
+    useEffect(() => {
+        setHolidays(Array.from(new Set(holidays)));
+    }, [isSuccess]);
+
     const changeDate = (direction: 'prev' | 'next') => {
         const delta = viewMode === 'month' ? 1 : 7;
         const updatedDate = new Date(currentDate);
@@ -30,21 +51,19 @@ const Calendar: React.FC = () => {
         <section className="calendar">
             <header className="calendar-header">
                 <button className="nav-button" onClick={() => changeDate('prev')}>&lt;</button>
-                <h2 className="calendar-title">
-                    {currentDate.toLocaleString('default', {
-                        month: 'long',
-                        year: 'numeric',
-                    })}
-                </h2>
+                <h2 className="calendar-title">{formatDateTitle(currentDate)}</h2>
                 <button className="nav-button" onClick={() => changeDate('next')}>&gt;</button>
 
                 <div className="view-switcher">
-                    <button className={`view-button ${viewMode === 'month' ? 'active' : ''}`}
-                            onClick={() => setViewMode('month')}>Month
-                    </button>
-                    <button className={`view-button ${viewMode === 'week' ? 'active' : ''}`}
-                            onClick={() => setViewMode('week')}>Week
-                    </button>
+                    {views.map((view) => (
+                        <button
+                            key={view}
+                            className={`view-button ${viewMode === view ? 'active' : ''}`}
+                            onClick={() => setViewMode(view)}
+                        >
+                            {view.charAt(0).toUpperCase() + view.slice(1)}
+                        </button>
+                    ))}
                 </div>
             </header>
 

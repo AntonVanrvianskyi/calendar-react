@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {Day} from "@/interfaces/date.interface.ts";
 import DayCell from "@/Calendar/day";
 
@@ -12,4 +12,4 @@ const WeekView: React.FC<{ days: Day[]; currentMonth: number }> = ({ days, curre
     );
 };
 
-export default WeekView
+export default memo(WeekView)

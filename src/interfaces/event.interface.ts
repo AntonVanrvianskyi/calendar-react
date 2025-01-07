@@ -3,4 +3,6 @@ export interface IEvent {
     event: string
     priority: string
     day?: Date | string
+    order?: number
+    isHoliday?: boolean
 }

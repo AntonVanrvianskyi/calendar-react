@@ -27,13 +27,19 @@ const options = [
 
 function AddEventToDay() {
 
-    const {setContextEventModal, setUpdateEvent, setEvents, eventModalContext: {isOpen, payload, id, editEvent, type}} = useEventStore()
+    const {
+        setContextEventModal,
+        setUpdateEvent,
+        // events,
+        setEvents,
+        eventModalContext: {isOpen, payload, id, editEvent, type}
+    } = useEventStore()
     const methods = useForm<Inputs>()
     const {handleSubmit, reset, setValue, formState: {isValid}} = methods
     const isCreate = type === "add"
 
     useEffect(() => {
-        if(editEvent) {
+        if (editEvent) {
             setValue("event", editEvent.event)
             setValue("priority", editEvent.priority)
         } else {
@@ -52,7 +58,6 @@ function AddEventToDay() {
         reset()
         setContextEventModal({isOpen: false})
     }
-    console.log(editEvent, "editEvent")
 
     const onCloseModal = () => {
         setContextEventModal({isOpen: false})
@@ -77,7 +82,7 @@ function AddEventToDay() {
                         </button>
                     </div>
                     <FormProvider {...methods} >
-                        <form onSubmit={handleSubmit(isCreate ? onSubmit : onUpdate )}>
+                        <form onSubmit={handleSubmit(isCreate ? onSubmit : onUpdate)}>
                             <InputField label="Event Name:" name="event"/>
                             <SelectField label="Choose priority:" name="priority" options={options}/>
                             <ActionButton label="Add event" disabled={!isValid}/>
