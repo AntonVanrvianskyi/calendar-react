@@ -7,7 +7,7 @@ export const useGenerateWeekDays = (currentDate: Date): Day[][] => {
     const days: Day[] = [];
 
     for (let i = 0; i < 7; i++) {
-        days.push({ date: new Date(start),});
+        days.push({ date: new Date(start), events: []});
         start.setDate(start.getDate() + 1);
     }
     return [days];
