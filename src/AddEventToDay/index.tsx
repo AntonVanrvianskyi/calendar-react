@@ -3,10 +3,10 @@ import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import InputField from "@/designSystem/forms/InputField";
 import SelectField from "@/designSystem/forms/SelectField";
 import ActionButton from "@/designSystem/interactions/ActionButton";
-import CloseIcon from "@/designSystem/icons";
+import {CloseIcon} from "@/designSystem/icons";
 import {useEventStore} from "@/AddEventToDay/useEventsStore.ts";
 import './index.css'
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 
 type Inputs = {
     event: string
@@ -30,7 +30,6 @@ function AddEventToDay() {
     const {
         setContextEventModal,
         setUpdateEvent,
-        // events,
         setEvents,
         eventModalContext: {isOpen, payload, id, editEvent, type}
     } = useEventStore()
@@ -38,26 +37,30 @@ function AddEventToDay() {
     const {handleSubmit, reset, setValue, formState: {isValid}} = methods
     const isCreate = type === "add"
 
-    useEffect(() => {
+    const initializeForm = useCallback(() => {
         if (editEvent) {
-            setValue("event", editEvent.event)
-            setValue("priority", editEvent.priority)
+            setValue("event", editEvent.event);
+            setValue("priority", editEvent.priority);
         } else {
-            setValue("event", "")
+            reset();
         }
-    }, [editEvent, setValue])
+    }, [editEvent, setValue, reset]);
+
+    useEffect(() => {
+        if (isOpen) {
+            initializeForm();
+        }
+    }, [isOpen, initializeForm])
 
     const onSubmit: SubmitHandler<Inputs> = (values) => {
-        setEvents({...values, id: new Date().getTime(), day: payload})
-        reset()
-        setContextEventModal({isOpen: false})
-    }
-
-    const onUpdate: SubmitHandler<Inputs> = (values) => {
-        setUpdateEvent({...values, id})
-        reset()
-        setContextEventModal({isOpen: false})
-    }
+        if (isCreate) {
+            setEvents({...values, id: new Date().getTime(), day: payload});
+        } else {
+            setUpdateEvent({...values, id});
+        }
+        reset();
+        setContextEventModal({isOpen: false});
+    };
 
     const onCloseModal = () => {
         setContextEventModal({isOpen: false})
@@ -82,10 +85,10 @@ function AddEventToDay() {
                         </button>
                     </div>
                     <FormProvider {...methods} >
-                        <form onSubmit={handleSubmit(isCreate ? onSubmit : onUpdate)}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <InputField label="Event Name:" name="event"/>
                             <SelectField label="Choose priority:" name="priority" options={options}/>
-                            <ActionButton label="Add event" disabled={!isValid}/>
+                            <ActionButton label={isCreate ? "Add Event" : "Save Changes"} disabled={!isValid}/>
                         </form>
                     </FormProvider>
                 </Modal>

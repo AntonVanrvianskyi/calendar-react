@@ -8,17 +8,23 @@ interface Props {
 }
 
 export const useGetCountryCode = ({year}: Props) => {
-    const [countryCode, setCountryCode] = useState<string | null>(null);
+    const [countryCode, setCountryCode] = useState<string | null>(() => {
+        return localStorage.getItem("countryCode");
+    });
 
     useEffect(() => {
+        if (countryCode) return;
+
         navigator.geolocation.getCurrentPosition(
             async (position) => {
                 const {latitude, longitude} = position.coords;
                 try {
                     const response = await getCountryCode({latitude, longitude});
+
                     if (response.status === 200) {
                         const country = response.data.results[0]?.components.country_code || "UA";
                         setCountryCode(country);
+                        localStorage.setItem("countryCode", country);
                     }
                 } catch (error) {
                     console.error("Geocoding error:", error);
@@ -28,8 +34,8 @@ export const useGetCountryCode = ({year}: Props) => {
                 console.error("Geolocation error:", error);
             }
         );
-    }, []);
-    console.log(countryCode, "countryCode");
+    }, [countryCode]);
+
     const {data, isLoading, isSuccess, isError} = useQuery({
         queryKey: ['public-holiday', countryCode, year],
         queryFn: () => getPublicHolidays({ countryCode: String(countryCode) || "UA", year: String(year) }),
