@@ -5,7 +5,6 @@ import {useFormContext} from "react-hook-form";
 interface InputFieldProps {
     label: string
     placeholder?: string
-    // register: UseFormRegister<Record<string, string>>
     name: string
     required?: boolean
 }

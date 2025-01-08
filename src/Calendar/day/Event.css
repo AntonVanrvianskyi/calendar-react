@@ -7,6 +7,12 @@
     border-radius: 5px;
     border: 1px solid var(--gray);
 }
+
+.event:hover {
+    transition: .2s;
+    background: var(--gray);
+}
+
 .event p {
     margin: 0;
     text-align: left;

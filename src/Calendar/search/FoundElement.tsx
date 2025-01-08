@@ -8,11 +8,7 @@ interface Props {
 }
 
 function FoundElement({event}: Props) {
-
     const day = new Date(String(event.day)).getDate()
-    // const day = new Date(String(event.day)).toDateString().toLocaleString()
-    // const month = new Date(day).getMonth()
-
 
     return (
         <div

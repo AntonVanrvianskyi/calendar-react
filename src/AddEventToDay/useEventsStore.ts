@@ -9,7 +9,6 @@ interface Context {
     editEvent?: IEvent | null
 }
 
-
 interface EventStore {
     eventModalContext: Context;
     setContextEventModal: (value: Context) => void
@@ -19,9 +18,7 @@ interface EventStore {
     setHolidayToEvents: (holidays: IEvent[]) => void
     reorderEvents: (draggedId: number, targetId: number, day: Date) => void;
 
-
 }
-
 
 export const useEventStore = create<EventStore>((set) => ({
     eventModalContext: {isOpen: false, payload: "", editEvent: null},
@@ -29,7 +26,7 @@ export const useEventStore = create<EventStore>((set) => ({
     events: [],
     setEvents: (newEvent: IEvent) => set((state) => {
         const dayEvents = state.events.filter((event) => event.day === newEvent.day);
-        const nextOrder = dayEvents.length; // Визначення наступного порядку
+        const nextOrder = dayEvents.length;
         return {
             events: [...state.events, {...newEvent, order: nextOrder}],
         };
@@ -37,7 +34,7 @@ export const useEventStore = create<EventStore>((set) => ({
     setUpdateEvent: (event: IEvent) => set((state) => ({
         events: state.events.map(existEvent => existEvent.id === event.id ? {...existEvent, ...event} : existEvent),
     })),
-    setHolidayToEvents: (holidays: IEvent[]) => set((state) => ({events: [...state.events, ...holidays]})),
+    setHolidayToEvents: (holidays: IEvent[]) => set((state) => ({events: [...state.events, ...Array.from(new Set(holidays))]})),
     reorderEvents: (draggedId, targetId, day) =>
         set((state) => {
             const filteredEvents = state.events.filter((event) => event.day === day);

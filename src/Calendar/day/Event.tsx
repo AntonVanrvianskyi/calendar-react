@@ -4,7 +4,6 @@ import {memo} from "react";
 
 interface Props {
     event: IEvent
-
 }
 
 function Event({event}: Props) {

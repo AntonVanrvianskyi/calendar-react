@@ -38,7 +38,9 @@ const Calendar: React.FC = () => {
     }, [data?.data]);
 
     useEffect(() => {
-        setHolidays(Array.from(new Set(holidays)));
+        if(isSuccess) {
+            setHolidays(holidays)
+        }
     }, [isSuccess]);
 
 
@@ -60,7 +62,6 @@ const Calendar: React.FC = () => {
 
     return (
         <>
-
             <section className="calendar">
                 <header className="calendar-header">
                     <div className="calendar-header__info">

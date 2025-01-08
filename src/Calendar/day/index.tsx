@@ -29,7 +29,7 @@ const DayCell: React.FC<Props> = ({day, currentMonth}) => {
                     eventDate.getFullYear() === day.date.getFullYear()
                 );
             })
-            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0)); // Сортуємо події за полем `order`
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     }, [day]);
 
     const handleOpenAddEventModal = () => {
@@ -37,7 +37,6 @@ const DayCell: React.FC<Props> = ({day, currentMonth}) => {
     }
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, event: IEvent) => {
-        console.log(event, "handleDragStart")
         e.dataTransfer.setData("event", JSON.stringify(event));
         e.dataTransfer.setData("sourceDay", day.date.toISOString());
     };
@@ -46,10 +45,8 @@ const DayCell: React.FC<Props> = ({day, currentMonth}) => {
         e.preventDefault();
         const droppedEvent = JSON.parse(e.dataTransfer.getData("event"));
         const sourceDay = e.dataTransfer.getData("sourceDay");
-        console.log(sourceDay, 'source day')
         if (sourceDay === day.date.toISOString()) {
             if (targetEvent) {
-                console.log(droppedEvent.id, targetEvent.id, "ids");
                 reorderEvents(droppedEvent.id, Number(targetEvent.id), day.date);
             }
         } else {
